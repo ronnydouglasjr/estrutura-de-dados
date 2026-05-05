@@ -20,3 +20,6 @@ jobs:
 
       - name: Rodar testes com Maven
         run: mvn test
+
+      - name: Verificar formatação
+        run: mvn spotless:check
