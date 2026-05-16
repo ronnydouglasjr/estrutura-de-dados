@@ -6,7 +6,7 @@ public class BubbleSort {
 
     for (int i = 0; i < array.length; i++) {
       boolean trocou = false;
-      for (int j = 1; j < array.length; j++) {
+      for (int j = 1; j < array.length - i; j++) {
 
         int indice = j - 1;
 

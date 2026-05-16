@@ -13,21 +13,21 @@ O Merge Sort é um algoritmo de ordenação baseado na estratégia **dividir par
 ## 🧠 Como funciona?
 
 ```
-Array original: [38, 27, 43, 3, 9, 82, 10, 1]
+Array original: [38, 27, 43, 3, 9, 82, 10]
 
-              [38, 27, 43, 3, 9, 82, 10, 1]
-                    /                  \
-          [38, 27, 43, 3]          [9, 82, 10, 1]
-             /       \               /        \
-        [38, 27]    [43, 3]      [9, 82]    [10, 1]
-         /    \      /    \      /    \      /    \
-       [38]  [27]  [43]  [3]  [9]  [82]  [10]   [1]
-         \    /      \    /     \    /      \    /
-        [27, 38]    [3, 43]    [9, 82]     [1, 10]
-              \        /            \        /
-          [3, 27, 38, 43]        [1, 9, 10, 82]
-                    \                  /
-            [1, 3, 9, 10, 27, 38, 43, 82]
+          [38, 27, 43, 3, 9, 82, 10]
+                /               \
+        [38, 27, 43]         [3, 9, 82, 10]
+          /      \              /        \
+      [38, 27]  [43]        [3, 9]    [82, 10]
+       /    \                /    \     /    \
+     [38]  [27]            [3]   [9] [82]  [10]
+       \    /                \    /     \    /
+      [27, 38]              [3, 9]    [10, 82]
+           \                    \      /
+        [27, 38, 43]         [3, 9, 10, 82]
+                   \              /
+           [3, 9, 10, 27, 38, 43, 82]
 ```
 
 ---
@@ -83,34 +83,33 @@ Recebe dois arrays **já ordenados** e os combina em um único array ordenado.
 4. Ao esgotar um dos lados, copia os elementos restantes do esquerdo, se houver, e depois os do direito, se houver.
 
 ```java
-  private static int[] merge(int[] esquerdo, int[] direito) {
-
+private static int[] merge(int[] esquerdo, int[] direito) {
     int[] resultado = new int[esquerdo.length + direito.length];
 
-    int indiceDoLadoEsquerdo = 0;
-    int indiceDoLadoDireito = 0;
+    int indiceDoEsquerdo = 0;
+    int indiceDoDireito = 0;
     int indiceDoResultado = 0;
 
-    while (indiceDoLadoEsquerdo < esquerdo.length && indiceDoLadoDireito < direito.length) {
-        if (esquerdo[indiceDoLadoEsquerdo] < direito[indiceDoLadoDireito]) {
-            resultado[indiceDoResultado] = esquerdo[indiceDoLadoEsquerdo];
-            indiceDoLadoEsquerdo++;
+    while (indiceDoEsquerdo < esquerdo.length && indiceDoDireito < direito.length) {
+        if (esquerdo[indiceDoEsquerdo] < direito[indiceDoDireito]) {
+            resultado[indiceDoResultado] = esquerdo[indiceDoEsquerdo];
+            indiceDoEsquerdo++;
         } else {
-            resultado[indiceDoResultado] = direito[indiceDoLadoDireito];
-            indiceDoLadoDireito++;
+            resultado[indiceDoResultado] = direito[indiceDoDireito];
+            indiceDoDireito++;
         }
         indiceDoResultado++;
     }
 
-    while (indiceDoLadoEsquerdo < esquerdo.length) {
-        resultado[indiceDoResultado] = esquerdo[indiceDoLadoEsquerdo];
-        indiceDoLadoEsquerdo++;
+    while (indiceDoEsquerdo < esquerdo.length) {
+        resultado[indiceDoResultado] = esquerdo[indiceDoEsquerdo];
+        indiceDoEsquerdo++;
         indiceDoResultado++;
     }
 
-    while (indiceDoLadoDireito < direito.length) {
-        resultado[indiceDoResultado] = direito[indiceDoLadoDireito];
-        indiceDoLadoDireito++;
+    while (indiceDoDireito < direito.length) {
+        resultado[indiceDoResultado] = direito[indiceDoDireito];
+        indiceDoDireito++;
         indiceDoResultado++;
     }
 
@@ -123,11 +122,11 @@ Recebe dois arrays **já ordenados** e os combina em um único array ordenado.
 ## ⚙️ Como usar
 
 ```java
-int[] array = {38, 27, 43, 3, 9, 82, 10, 1};
+int[] array = {38, 27, 43, 3, 9, 82, 10};
 int[] ordenado = MergeSort.mergeSort(array);
 
 System.out.println(Arrays.toString(ordenado));
-// Saída: [1, 3, 9, 10, 27, 38, 43, 82]
+// Saída: [3, 9, 10, 27, 38, 43, 82]
 ```
 
 ---
@@ -141,6 +140,8 @@ System.out.println(Arrays.toString(ordenado));
 | Pior caso   | O(n log n)  | O(n)    |
 
 > O Merge Sort sempre divide o array ao meio, independente dos dados, por isso sua complexidade de tempo é sempre **O(n log n)** — mesmo no pior caso.
+
+---
 
 ## 🛠️ Requisitos
 

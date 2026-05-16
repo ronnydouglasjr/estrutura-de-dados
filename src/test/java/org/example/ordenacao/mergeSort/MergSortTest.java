@@ -23,9 +23,9 @@ public class MergSortTest {
 
   @Test
   public void arrayDesordenado() {
-    int[] array = {1, 5, 4, 3, 2, 9, 8, 7, 6, 0};
+    int[] array = {1, 5, 4, 3, 2, 9, 8, 0, 6, 7, 10};
     int[] resultado = MergeSort.mergeSort(array);
 
-    ArrayAsserts.assertArrayEquals(new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, resultado);
+    ArrayAsserts.assertArrayEquals(new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, resultado);
   }
 }

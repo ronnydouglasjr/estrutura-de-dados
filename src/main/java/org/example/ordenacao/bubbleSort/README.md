@@ -1,139 +1,91 @@
-# Bubble Sort
+# 🫧 Bubble Sort
 
-## O que é?
-
-Bubble Sort é um dos algoritmos de ordenação mais simples. A ideia é percorrer o array várias vezes, comparando elementos adjacentes e trocando-os quando estão fora de ordem. A cada passagem, o maior elemento não ordenado "borbulha" até sua posição correta no final do array.
+Implementação do algoritmo **Bubble Sort** em Java, com otimização de parada antecipada para melhor desempenho em arrays parcialmente ordenados.
 
 ---
 
-## Código
+## 📌 Sobre o algoritmo
 
-```java
-package org.example.ordenacao.bubbleSort;
+O Bubble Sort é um algoritmo de ordenação por comparação que percorre repetidamente o array, compara elementos adjacentes e os troca de posição quando estão fora de ordem. A cada passagem, o maior elemento "borbulha" para o final do array.
 
-public class BubbleSort {
+Esta implementação inclui uma otimização: se nenhuma troca for realizada em uma passagem completa, o array já está ordenado e o algoritmo para imediatamente.
 
-    public static int[] sort(int[] array) {
+---
 
-        for (int i = 0; i < array.length; i++) {
-            boolean trocou = false;
-            for (int j = 0; j < array.length - 1 - i; j++) {
-                if (array[j] > array[j + 1]) {
-                    int temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
-                    trocou = true;
-                }
-            }
-            if (!trocou) break;
-        }
+## ⚙️ Como funciona
 
-        return array;
-    }
-}
+Dado o array `[5, 3, 8, 1, 2]`:
+
+| Passagem | Array               | Trocas |
+|----------|---------------------|--------|
+| 1ª       | `[3, 5, 1, 2, 8]`  | Sim    |
+| 2ª       | `[3, 1, 2, 5, 8]`  | Sim    |
+| 3ª       | `[1, 2, 3, 5, 8]`  | Sim    |
+| 4ª       | `[1, 2, 3, 5, 8]`  | Não → para |
+
+---
+
+## 📁 Estrutura
+
+```
+src/
+└── main/
+    └── java/
+        └── org/
+            └── example/
+                └── ordenacao/
+                    └── bubbleSort/
+                        └── BubbleSort.java
 ```
 
 ---
 
-## Explicação linha a linha
+## 🚀 Como usar
 
-### Loop externo — controla as passagens
 ```java
-for (int i = 0; i < array.length; i++)
+int[] array = {5, 3, 8, 1, 2};
+int[] ordenado = BubbleSort.sort(array);
+
+System.out.println(Arrays.toString(ordenado));
+// Saída: [1, 2, 3, 5, 8]
 ```
-Cada iteração representa uma passagem completa pelo array. Após cada passagem, pelo menos um elemento estará na sua posição correta (o maior da parte não ordenada).
+
+> **Atenção:** o método ordena o array **in-place**, ou seja, o array original é modificado.
 
 ---
 
-### Flag de otimização
+## 📊 Complexidade
+
+| Caso         | Tempo    | Espaço |
+|--------------|----------|--------|
+| Melhor caso  | O(n)     | O(1)   |
+| Caso médio   | O(n²)    | O(1)   |
+| Pior caso    | O(n²)    | O(1)   |
+
+- **Melhor caso O(n):** ocorre quando o array já está ordenado — a flag `trocou` evita passagens desnecessárias.
+- **Estável:** sim, elementos iguais mantêm a ordem relativa.
+- **In-place:** não utiliza memória auxiliar proporcional ao tamanho do array.
+
+---
+
+## 🔍 Detalhes da implementação
+
 ```java
 boolean trocou = false;
 ```
-Começa como `false` em cada passagem. Se nenhuma troca ocorrer durante a passagem, significa que o array já está ordenado e podemos parar mais cedo.
-
----
-
-### Loop interno — compara elementos adjacentes
-```java
-for (int j = 0; j < array.length - 1 - i; j++)
-```
-Percorre os elementos ainda não ordenados. O `- 1` evita acessar uma posição fora do array, e o `- i` pula os elementos que já foram ordenados nas passagens anteriores — não há necessidade de verificá-los novamente.
-
----
-
-### Comparação e troca
-```java
-if (array[j] > array[j + 1]) {
-    int temp = array[j];
-    array[j] = array[j + 1];
-    array[j + 1] = temp;
-    trocou = true;
-}
-```
-Se o elemento da esquerda for maior que o da direita, eles trocam de lugar. A variável `temp` guarda o valor temporariamente para não perdê-lo durante a troca. A flag `trocou` é marcada como `true` para indicar que houve pelo menos uma troca nessa passagem.
-
----
-
-### Saída antecipada (otimização)
-```java
-if (!trocou) break;
-```
-Se após uma passagem completa nenhuma troca ocorreu, o array já está ordenado. O `break` interrompe o loop externo evitando iterações desnecessárias.
-
----
-
-## Exemplo passo a passo
-
-Array inicial: `[5, 3, 8, 1, 2]`
-
-| Passagem | Comparações | Array após a passagem |
-|----------|-------------|----------------------|
-| 1ª       | 4           | `[3, 5, 1, 2, 8]`    |
-| 2ª       | 3           | `[3, 1, 2, 5, 8]`    |
-| 3ª       | 2           | `[1, 2, 3, 5, 8]`    |
-| 4ª       | 1           | `[1, 2, 3, 5, 8]` ✅ sem trocas → para |
-
----
-
-## Complexidade
-
-| Caso         | Tempo    | Descrição                                      |
-|--------------|----------|------------------------------------------------|
-| Melhor caso  | O(n)     | Array já ordenado — sai na primeira passagem   |
-| Caso médio   | O(n²)    | Elementos em ordem aleatória                   |
-| Pior caso    | O(n²)    | Array em ordem inversa                         |
-| Espaço       | O(1)     | Ordenação in-place, sem memória extra          |
-
----
-
-## Teste
+Flag que detecta se houve alguma troca na passagem atual. Caso não haja, o loop externo é interrompido via `break`, evitando iterações desnecessárias.
 
 ```java
-package org.example.ordenacao;
-
-import org.example.ordenacao.bubbleSort.BubbleSort;
-import org.testng.annotations.Test;
-
-import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
-
-public class BubbleSortTest {
-
-    @Test
-    void deveOrdenarArrayDesordenado() {
-        int[] array = {1, 5, 4, 3, 2};
-        int[] resultado = BubbleSort.sort(array);
-        assertArrayEquals(new int[]{1, 2, 3, 4, 5}, resultado);
-    }
-}
+for (int j = 1; j < array.length - i; j++)
 ```
-
-Para rodar os testes:
-```bash
-mvn test
-```
+O limite `array.length - i` garante que os últimos `i` elementos (já ordenados) não sejam comparados novamente, reduzindo comparações redundantes.
 
 ---
 
-## Quando usar?
+## ✅ Quando usar
 
-O Bubble Sort é indicado apenas para fins **didáticos**. Para uso em produção com arrays grandes, prefira algoritmos mais eficientes como **Merge Sort** ou **Quick Sort**, que têm complexidade O(n log n).
+| ✅ Indicado para                        | ❌ Evitar quando                        |
+|-----------------------------------------|-----------------------------------------|
+| Arrays pequenos                         | Arrays grandes (preferir QuickSort/MergeSort) |
+| Arrays quase ordenados                  | Performance é crítica                   |
+| Fins didáticos e aprendizado            | Ambiente de produção com alto volume    |

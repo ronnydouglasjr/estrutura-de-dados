@@ -16,33 +16,32 @@ public class MergeSort {
   }
 
   private static int[] merge(int[] esquerdo, int[] direito) {
-
     int[] resultado = new int[esquerdo.length + direito.length];
 
-    int indiceDoLadoEsquerdo = 0;
-    int indiceDoLadoDireito = 0;
+    int indiceDoEsquerdo = 0;
+    int indiceDoDireito = 0;
     int indiceDoResultado = 0;
 
-    while (indiceDoLadoEsquerdo < esquerdo.length && indiceDoLadoDireito < direito.length) {
-      if (esquerdo[indiceDoLadoEsquerdo] < direito[indiceDoLadoDireito]) {
-        resultado[indiceDoResultado] = esquerdo[indiceDoLadoEsquerdo];
-        indiceDoLadoEsquerdo++;
+    while (indiceDoEsquerdo < esquerdo.length && indiceDoDireito < direito.length) {
+      if (esquerdo[indiceDoEsquerdo] < direito[indiceDoDireito]) {
+        resultado[indiceDoResultado] = esquerdo[indiceDoEsquerdo];
+        indiceDoEsquerdo++;
       } else {
-        resultado[indiceDoResultado] = direito[indiceDoLadoDireito];
-        indiceDoLadoDireito++;
+        resultado[indiceDoResultado] = direito[indiceDoDireito];
+        indiceDoDireito++;
       }
       indiceDoResultado++;
     }
 
-    while (indiceDoLadoEsquerdo < esquerdo.length) {
-      resultado[indiceDoResultado] = esquerdo[indiceDoLadoEsquerdo];
-      indiceDoLadoEsquerdo++;
+    while (indiceDoEsquerdo < esquerdo.length) {
+      resultado[indiceDoResultado] = esquerdo[indiceDoEsquerdo];
+      indiceDoEsquerdo++;
       indiceDoResultado++;
     }
 
-    while (indiceDoLadoDireito < direito.length) {
-      resultado[indiceDoResultado] = direito[indiceDoLadoDireito];
-      indiceDoLadoDireito++;
+    while (indiceDoDireito < direito.length) {
+      resultado[indiceDoResultado] = direito[indiceDoDireito];
+      indiceDoDireito++;
       indiceDoResultado++;
     }
 
